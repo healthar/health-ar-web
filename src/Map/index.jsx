@@ -45,7 +45,8 @@ class MapLayout extends Component {
         loading: false,
         locations: [],
         currentLocation: {},
-        position: [37.330917, -121.889185]
+        position: [37.330917, -121.889185],
+        zoom: 13
     };
     
     /**
@@ -182,10 +183,11 @@ class MapLayout extends Component {
                 }}></ReviewForm>
             :null}
 
-            <Map center={this.state.position} zoom={13} onViewportChanged={({ center, zoom }) => {
+            <Map center={this.state.position} zoom={this.state.zoom} onViewportChanged={({ center, zoom }) => {
                 this.getLocations(1, center[0], center[1]); // to update view on drag
                 this.setState({
-                    position: center
+                    position: center,
+                    zoom
                 })
             }}>
                 <TileLayer
