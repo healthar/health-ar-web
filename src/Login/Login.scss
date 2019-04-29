@@ -1,7 +1,81 @@
 @import 'styles/_shared.scss';
 
-.login-container {
+.login-page {
     width: 100vw;
     min-height: 100vh;
     background-color: $palest-grey;
+    position: absolute;
+    top: 0px;
+}
+
+.login-container {
+    background-color: white;
+    margin: 20% auto;
+    width: 700px;
+    height: 450px;
+
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-template-areas: "login registration";
+
+    box-shadow: $box-shadow;
+}
+
+.login--left {
+    grid-area: login;
+
+    padding: 100px 50px;
+}
+
+.login--right {
+    grid-area: registration;
+
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "patient" "doctor";
+    align-items: stretch;
+    justify-items: stretch;
+}
+
+.registration--patient,
+.registration--doctor {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.registration--patient {
+    grid-area: patient;
+    background-color: $blue-medium;
+}
+
+.registration--doctor {
+    grid-area: doctor;
+    background-color: $blue-light;
+}
+
+.btn--main {
+    @include system-button($blue, $blue-hover);
+    font-weight: 600;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.registration--header {
+    padding-bottom: -30px;
+}
+
+@media (max-width: 650px)  {
+    .login-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: "login" "registration";
+    }
 }

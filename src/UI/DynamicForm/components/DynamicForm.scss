@@ -12,7 +12,7 @@ DYNAMIC FORM
 }
 
 .form-QA {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 /*
 ==========================
@@ -24,7 +24,7 @@ QUESTION
   color: $darker-grey;
   font-weight: 600;
   display: block;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
   text-align: left;
 }
 /*
@@ -44,16 +44,20 @@ QUESTION SUBTEXT
 SUBMIT BUTTON
 ==========================
 */
-.form-btn {
-  @include system-button($theme-green, $theme-green--hover);
+
+.form-btn,
+.form-btn--disabled {
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 40px;
+  font-weight: 600;
+}
+.form-btn {
+  @include system-button($blue, $blue-hover);
+  padding: 10px 30px;
   cursor: pointer;
 }
 .form-btn--disabled {
   @include system-button($lighter-grey, $lighter-grey);
-  margin: 0 auto;
-  margin-top: 20px;
   cursor: disabled;
   width: 200px;
 }
