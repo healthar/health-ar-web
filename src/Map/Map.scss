@@ -1,0 +1,25 @@
+@import 'styles/_shared.scss';
+
+.map-layout {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    .leaflet-container {
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .sidebar {
+        background: #f2f2f2;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 30vw;
+        z-index: 10000;
+    }
+}
