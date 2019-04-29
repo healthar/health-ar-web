@@ -165,6 +165,7 @@ class DynamicFormContainer extends React.Component {
         onSubmit={this.props.onSubmit}
         btnText={this.props.btnText}
         horizontal={this.props.horizontal}
+        onCancel={this.props.onCancel}
       />
     ) : (
       <EditableModeControls

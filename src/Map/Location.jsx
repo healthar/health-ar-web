@@ -4,9 +4,7 @@ import {
     IndividualRating, AggregateRating
 } from './Ratings'
 
-const Location = ({ currentLocation, aggregate }) => {
-    let photoLink = 'https://placeimg.com/450/300/arch'
-
+const Location = ({ currentLocation, aggregate, toggleReviewFormVisibility }) => {
     const renderDescription = (review) => {
         return review.description && (
             <>
@@ -37,9 +35,11 @@ const Location = ({ currentLocation, aggregate }) => {
         <section className='location--container'>
             <img className='location--hero-img' alt="location" src='https://placeimg.com/450/300/arch' />
             <div className='location--header'>{currentLocation.name}</div>
-            {/* <div className='location--rating'>{currentLocation.rating}</div> */}
             <div className="location-icons">
                 <AggregateRating reviews={aggregate} />
+            </div>
+            <div className='location--add-review-container'>
+                <button onClick={() => { toggleReviewFormVisibility() }} className='location--btn'>Add New Review</button>
             </div>
             <div className='location--subheader'>Reviews</div>
             <br />

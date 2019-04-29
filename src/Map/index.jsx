@@ -47,7 +47,8 @@ class MapLayout extends Component {
         loading: false,
         locations: [],
         currentLocation: {},
-        position: [37.330917, -121.889185]
+        position: [37.330917, -121.889185],
+        reviewFormVisibility: false
     };
     
     /**
@@ -175,14 +176,24 @@ class MapLayout extends Component {
             return JSON.parse(localStorage.getItem('user'));
     }
 
+    toggleReviewFormVisibility = () => {
+        this.setState({ reviewFormVisibility: this.state.reviewFormVisibility ? false : true })
+    }
+
     render() {
+        let { reviewFormVisibility } = this.state;
         let currentLocationAggregate = this.getAverageForLocation(this.state.currentLocation.reviews)
         return (<div className='map-layout'>
 
-            {(Object.keys(this.state.currentLocation).length > 0) ?
-                <ReviewForm locationID={this.state.currentLocation.place_id} creatorID={this.getUser().id} createdReview={() => {
-                    this.getLocations(1, this.state.position[0], this.state.position[1]); // to update view on drag
-                }}></ReviewForm>
+            {(Object.keys(this.state.currentLocation).length > 0)  && reviewFormVisibility ?
+                <ReviewForm 
+                    locationID={this.state.currentLocation.place_id} 
+                    creatorID={this.getUser().id} 
+                    createdReview={() => {
+                        this.getLocations(1, this.state.position[0], this.state.position[1]); // to update view on drag
+                    }} 
+                    toggleReviewFormVisibility={this.toggleReviewFormVisibility}
+                />
             :null}
 
             <Map center={this.state.position} zoom={13} onViewportChanged={({ center, zoom }) => {
@@ -219,6 +230,7 @@ class MapLayout extends Component {
                     ? <Location 
                             currentLocation={this.state.currentLocation} 
                             aggregate={currentLocationAggregate} 
+                            toggleReviewFormVisibility={this.toggleReviewFormVisibility}
                         />
                     :  <p>Please select a location</p>
                 }

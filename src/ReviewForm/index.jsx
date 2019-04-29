@@ -87,6 +87,7 @@ class ReviewForm extends React.Component {
                         questions={ReviewQA}
                         onSubmit={this.submitHandler}
                         editable={true}
+                        onCancel={this.props.toggleReviewFormVisibility}
                     />
                 </section>
             </div>

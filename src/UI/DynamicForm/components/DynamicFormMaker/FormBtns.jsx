@@ -1,20 +1,39 @@
 import React from "react";
 import './FormBtns.scss';
 
-export const SubmitBtn = ({ form_data, disabled, onSubmit, btnText, horizontal }) => {
+export const SubmitBtn = ({ form_data, disabled, onSubmit, btnText, horizontal, onCancel }) => {
+  const renderSubmitBtn = () => (
+    <input
+    className={disabled ? "form-btn--disabled" : "form-btn"}
+    type="submit"
+    value={btnText || "Submit"}
+    disabled={disabled}
+    onClick={e => {
+      e.preventDefault();
+      onSubmit(form_data);
+    }}
+  />
+  )
+
+  const renderCancelBtn = () => (
+    <button className="btn--cancel" onClick={() => onCancel()}>
+            Cancel
+      </button>
+  )
+
+
+  const renderBtnRow = () => (
+    <div className='btn-row'>
+      {renderCancelBtn()}
+      {renderSubmitBtn()}
+    </div>
+  )
+
+  
   return (
     <React.Fragment>
       {horizontal && <hr className="form-hline" />}
-      <input
-        className={disabled ? "form-btn--disabled" : "form-btn"}
-        type="submit"
-        value={ btnText || "Submit" }
-        disabled={disabled}
-        onClick={e => {
-          e.preventDefault();
-          onSubmit(form_data);
-        }}
-      />
+      { onCancel ? renderBtnRow() : renderSubmitBtn() }
     </React.Fragment>
   );
 };
@@ -64,10 +83,10 @@ export const EditableModeControls = ({
       />
     </EditableModeButtonRow>
   ) : (
-    <EditableModeToggleBtn
-      editable={editable}
-      disabled={disabled}
-      toggleEdit={toggleEdit}
-    />
-  );
+      <EditableModeToggleBtn
+        editable={editable}
+        disabled={disabled}
+        toggleEdit={toggleEdit}
+      />
+    );
 };
