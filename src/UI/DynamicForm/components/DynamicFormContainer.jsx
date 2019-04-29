@@ -113,14 +113,15 @@ class DynamicFormContainer extends React.Component {
       form_data[name] = value;
     }
 
-    const validateField = onValidate || isFieldValid;
-    fields_is_valid[`${name}_is_valid`] = optional ? true : validateField(
-      type,
-      form_data[name],
-      min,
-      max,
-      optional
-    );
+    console.log(QA_Object)
+    // const validateField = onValidate || isFieldValid;
+    // fields_is_valid[`${name}_is_valid`] = optional ? true : validateField(
+    //   type,
+    //   form_data[name],
+    //   min,
+    //   max,
+    //   optional
+    // );
 
     this.setState({ form_data, fields_is_valid });
   };
