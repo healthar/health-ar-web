@@ -1,0 +1,27 @@
+@import 'styles/_shared.scss';
+
+.rating {
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+.rating--checkmark {
+    .fa-check {
+        color: $theme-green--dark;
+    }
+}
+
+.rating--cross {
+    .fa-times {
+        color: $attention-red;
+    }
+}
+
+.rating--dash {
+    background-color: $grey;
+    width: 15px;
+    height: 5px;
+    border-radius: 2px;
+    padding: 0px;
+    margin: 12px 0px;
+}

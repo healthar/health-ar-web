@@ -4,6 +4,8 @@ import { withRouter } from "react-router";
 import './Map.scss';
 import ReviewForm from '../ReviewForm/index';
 import MapData from './Map.data.js';
+import Location from './Location';
+import { AggregateRating } from './Ratings'
 
 import { Map, Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
 
@@ -174,6 +176,7 @@ class MapLayout extends Component {
     }
 
     render() {
+        let currentLocationAggregate = this.getAverageForLocation(this.state.currentLocation.reviews)
         return (<div className='map-layout'>
 
             {(Object.keys(this.state.currentLocation).length > 0) ?
@@ -204,54 +207,21 @@ class MapLayout extends Component {
                             {location.name}
                             {(location.reviews.length > 0) ?
                                 <div className="tooltip-icons">
-                                    <span className={"trans " + this.getAverageForLocation(location.reviews).inclusiveTransgender}></span>
-                                    <span className={"sexuality " + this.getAverageForLocation(location.reviews).inclusiveSexuality}></span>
-                                    <span className={"bathroom " + this.getAverageForLocation(location.reviews).unisexBathroom}></span>
+                                    <AggregateRating reviews={this.getAverageForLocation(location.reviews)} small={true}/>
                                 </div>
                                 : null}
                         </Tooltip>
-                        {/* <Popup onClick>
-                            <b>{location.name}</b> - {location.rating}
-                            {location.reviews.map((review, id) => {
-                                return <ul>
-                                    <li>{JSON.stringify(review)}</li>
-                                    <li>inclusiveSexuality: {((review.inclusiveSexuality) ? "True" : "False")}</li>
-                                    <li>inclusiveTransgender: {((review.inclusiveTransgender) ? "True" : "False")}</li>
-                                    <li>unisexBathroom: {((review.unisexBathroom) ? "True" : "False")}</li>
-                                </ul>
-                            })}
-                        </Popup> */}
                     </Marker>
                 })}
             </Map>
             <div className="sidebar">
-                {Object.keys(this.state.currentLocation).length > 0 ?
-                    <>
-                        <b>{this.state.currentLocation.name} - {this.state.currentLocation.rating}</b>
-                        <br />
-                        {/* <b>{this.state.currentLocation.id}</b>
-                        <br />
-                        <b>{this.state.currentLocation.place_id}</b>
-                        <br /> */}
-                        <div className="sidebar-icons">
-                            <span className={"trans " + this.getAverageForLocation(this.state.currentLocation.reviews).inclusiveTransgender}></span>
-                            <span className={"sexuality " + this.getAverageForLocation(this.state.currentLocation.reviews).inclusiveSexuality}></span>
-                            <span className={"bathroom " + this.getAverageForLocation(this.state.currentLocation.reviews).unisexBathroom}></span>
-                        </div>
-                        <br />
-                        <b>Reviews</b>
-                        <br />
-                        {this.state.currentLocation.reviews.map((review, id) => {
-                            return <ul>
-                                <li>inclusiveSexuality: {((review.inclusiveSexuality) ? "True" : "False")}</li>
-                                <li>inclusiveTransgender: {((review.inclusiveTransgender) ? "True" : "False")}</li>
-                                <li>unisexBathroom: {((review.unisexBathroom) ? "True" : "False")}</li>
-                                <li>desc: {((review.description) ? review.description : "No Description")}</li>
-                            </ul>
-                        })}
-                    </>
-                    :
-                    <p>select a location</p>}
+                {Object.keys(this.state.currentLocation).length > 0 
+                    ? <Location 
+                            currentLocation={this.state.currentLocation} 
+                            aggregate={currentLocationAggregate} 
+                        />
+                    :  <p>Please select a location</p>
+                }
             </div>
         </div>)
     }

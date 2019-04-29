@@ -1,0 +1,73 @@
+@import 'styles/_shared.scss';
+
+.rating--small {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+.rating--aggregate-container {
+    box-sizing: border-box;
+
+    width: calc(100% + 40px);
+    margin-left: -20px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    justify-items: center;
+    align-items: start;
+
+    border-top: 1px solid $light-grey;
+    border-bottom: 1px solid $light-grey;
+
+    padding: 15px 20px;
+}
+
+.rating--aggregate-container--small {
+    max-width: 200px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    justify-items: center;
+    align-items: start;
+    padding: 5px;
+
+    .rating--text {
+        display: none;
+    }
+
+    .rating--medium {
+        width: 35px;
+        height: 35px;
+        object-fit: contain;
+    }
+
+    .rating--dash {
+        margin: 15px 0px;
+    }
+}
+
+.rating--aggregate {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.rating--medium {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.rating--text {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: $dark-grey;
+    min-height: 20px;
+}
+
+.individual-rating {
+    justify-self: end;
+}
