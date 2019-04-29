@@ -22,4 +22,108 @@
         width: 30vw;
         z-index: 10000;
     }
+
+    .tooltip {
+        .tooltip-icons {
+            margin-top: 4px;
+            display: flex;
+            justify-content: center;
+            span {
+                display: block;
+                background: red;
+                width: 18px;
+                height: 18px;
+                margin-left: 8px;
+                border-radius: 100%;
+                margin-bottom: 24px;
+                line-height: 18px;
+                vertical-align: middle;
+                text-align: center;
+
+                &:first-child {
+                    margin: 0;
+                }
+
+                &.trans {
+                    background: url("https://upload.wikimedia.org/wikipedia/commons/b/b0/Transgender_Pride_flag.svg");
+                }
+
+                &:before {
+                    content: '';
+                    display: block;
+                    color: black;
+                    width: 18px;
+                    height: 18px;
+                    margin-top: 22px;
+                }
+
+                &.yes::before {
+                    content: "y"
+                }
+
+                &.no::before {
+                    content: "n"
+                }
+
+                &.unsure::before {
+                    content: "-"
+                }
+            }
+        }
+    }
+
+    .tooltip-render {
+        display: block;
+        z-index: 10000;
+        background: black;
+        width: 100px;
+        height: 100px;
+    }
+
+    .sidebar-icons {
+        margin-top: 4px;
+        display: flex;
+        justify-content: center;
+        span {
+            display: block;
+            background: red;
+            width: 32px;
+            height: 32px;
+            margin-left: 8px;
+            border-radius: 100%;
+            margin-bottom: 64px;
+            line-height: 18px;
+            vertical-align: middle;
+            text-align: center;
+
+            &:first-child {
+                margin: 0;
+            }
+
+            &.trans {
+                background: url("https://upload.wikimedia.org/wikipedia/commons/b/b0/Transgender_Pride_flag.svg");
+            }
+
+            &:before {
+                content: '';
+                display: block;
+                color: black;
+                width: 32px;
+                height: 24px;
+                margin-top: 42px;
+            }
+
+            &.yes::before {
+                content: "y"
+            }
+
+            &.no::before {
+                content: "n"
+            }
+
+            &.unsure::before {
+                content: "-"
+            }
+        }
+    }
 }
