@@ -6,11 +6,21 @@
     right: 0;
     bottom: 0;
     left: 0;
+    overflow: hidden;
 
     .leaflet-container {
         height: 100%;
         width: 100%;
         margin: 0 auto;
+
+        transition: 0.6s ease all;
+    }
+
+    @keyframes enter-sidebar {
+        to {
+            transform: translateX(0%);
+            opacity: 1;
+        }
     }
 
     .sidebar {
@@ -24,6 +34,34 @@
         z-index: 10000;
         padding: 20px;
         box-sizing: border-box;
+        transition: 0.6s ease all;
+
+        &.show {
+            transform: translateX(0%);
+            opacity: 1;
+        }
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    @media (max-width: 900px) {
+        .sidebar {
+            top: 40vh;
+            width: 100vw;
+            height: 60vh;
+            overflow-y: scroll;
+
+            &.show {
+                transform: translateY(0%);
+            }
+            transform: translateY(100%);
+        }
+
+        &.show .leaflet-container {
+            height: 40%;
+            width: 100%;
+            margin: 0 auto;
+        }
     }
 
     .tooltip {
