@@ -178,7 +178,7 @@ class MapLayout extends Component {
 
     render() {
         let currentLocationAggregate = this.getAverageForLocation(this.state.currentLocation.reviews)
-        return (<div className='map-layout'>
+        return (<div className={"map-layout " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
 
             {(Object.keys(this.state.currentLocation).length > 0) ?
                 <ReviewForm locationID={this.state.currentLocation.place_id} creatorID={this.getUser().id} createdReview={() => {
@@ -190,7 +190,8 @@ class MapLayout extends Component {
                 this.getLocations(1, center[0], center[1]); // to update view on drag
                 this.setState({
                     position: center,
-                    zoom
+                    zoom,
+                    currentLocation: {}
                 })
             }}>
                 <TileLayer
@@ -216,7 +217,7 @@ class MapLayout extends Component {
                     </Marker>
                 })}
             </Map>
-            <div className="sidebar">
+            <div className={"sidebar " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
                 {Object.keys(this.state.currentLocation).length > 0 
                     ? <Location 
                             currentLocation={this.state.currentLocation} 
