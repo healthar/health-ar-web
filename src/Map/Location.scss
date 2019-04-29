@@ -1,0 +1,63 @@
+@import 'styles/_shared.scss';
+
+.location--container {
+    
+}
+
+.location--hero-img {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-top: -20px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.location--header {
+    font-size: 20px;
+    font-weight: 600;
+    color: $darker-grey;
+    margin: 20px 0px;
+}
+
+.location--subheader {
+    font-size: 16px;
+    font-weight: 600;
+    color: $darker-grey;
+    margin: 20px 0px;
+}
+
+.small-avatar {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+.location--review-h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: $darker-grey;
+}
+
+.review-top {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr;
+    align-items: center;
+
+}
+
+.review-content {
+    margin-left: 40px;
+}
+
+.sidebar--review-subheader {
+    font-size: 10px;
+    color: $dark-grey;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 10px 0px;
+}
+
+.sidebar--review-text {
+    font-size: 14px;
+    color: $dark-grey;
+}

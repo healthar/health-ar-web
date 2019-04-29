@@ -14,61 +14,69 @@
     }
 
     .sidebar {
-        background: #f2f2f2;
+        background: white;
         position: absolute;
         top: 0;
         bottom: 0;
         right: 0;
         width: 30vw;
+        min-width: 300px;
         z-index: 10000;
+        padding: 20px;
+        box-sizing: border-box;
     }
 
     .tooltip {
+        text-align: center;
+        font-weight: 600;
+        color: $darker-grey;
+        font-size: 12px;
+        
         .tooltip-icons {
             margin-top: 4px;
             display: flex;
             justify-content: center;
-            span {
-                display: block;
-                background: red;
-                width: 18px;
-                height: 18px;
-                margin-left: 8px;
-                border-radius: 100%;
-                margin-bottom: 24px;
-                line-height: 18px;
-                vertical-align: middle;
-                text-align: center;
+            // span {
+            //     display: block;
+            //     background: red;
+            //     width: 18px;
+            //     height: 18px;
+            //     margin-left: 8px;
+            //     border-radius: 100%;
+            //     margin-bottom: 24px;
+            //     line-height: 18px;
+            //     vertical-align: middle;
+            //     text-align: center;
 
-                &:first-child {
-                    margin: 0;
-                }
+            //     &:first-child {
+            //         margin: 0;
+            //     }
 
-                &.trans {
-                    background: url("https://upload.wikimedia.org/wikipedia/commons/b/b0/Transgender_Pride_flag.svg");
-                }
+            //     &.trans {
+            //         background: url("https://upload.wikimedia.org/wikipedia/commons/b/b0/Transgender_Pride_flag.svg");
+            //     }
 
-                &:before {
-                    content: '';
-                    display: block;
-                    color: black;
-                    width: 18px;
-                    height: 18px;
-                    margin-top: 22px;
-                }
+            //     &:before {
+            //         content: '';
+            //         display: block;
+            //         color: black;
+            //         width: 18px;
+            //         height: 18px;
+            //         margin-top: 22px;
+            //     }
 
-                &.yes::before {
-                    content: "y"
-                }
+            //     &.yes::before {
+            //         content: "y"
+            //     }
 
-                &.no::before {
-                    content: "n"
-                }
+            //     &.no::before {
+            //         content: "n"
+            //     }
 
-                &.unsure::before {
-                    content: "-"
-                }
-            }
+            //     &.unsure::before {
+            //         content: "-"
+            //     }
+            // }
         }
     }
 
