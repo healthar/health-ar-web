@@ -5,6 +5,7 @@ import radio from "./radio";
 import text from "./text";
 import textarea from "./textarea";
 import date from './date';
+import toggle from './toggle';
 
 export default {
   checkbox,
@@ -14,4 +15,8 @@ export default {
   text,
   textarea,
   date,
+  toggle,
+
+  // custom
+  
 };

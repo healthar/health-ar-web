@@ -1,0 +1,17 @@
+@import 'styles/_shared.scss';
+
+
+.review-form--page {
+    background-color: $palest-grey;
+    padding: 50px;
+    height: 100vh;
+}
+.review-form--container {
+    margin: 10% auto;
+    width: 450px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: $box-shadow;
+
+    box-sizing: content-box;
+}

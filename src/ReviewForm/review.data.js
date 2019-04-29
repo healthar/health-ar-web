@@ -1,21 +1,25 @@
 const ReviewQA = [
     {
-        text: "Unisex Bathroom",
-        input_type: "toggle",
-        field_name: "unisexBathroom",
-        optional: true
-    },
-    {
-        text: "Trans Inclusive",
-        input_type: "toggle",
-        field_name: "inclusiveTransgender",
-        optional: true
-    },
-    {
-        text: "LGBTQ Inclusive",
-        input_type: "toggle",
-        field_name: "inclusiveSexuality",
-        optional: true
+        row: [
+            {
+                text: "Unisex Bathroom",
+                input_type: "bathroom_toggle",
+                field_name: "unisexBathroom",
+                optional: true
+            },
+            {
+                text: "Trans Inclusive",
+                input_type: "trans_toggle",
+                field_name: "inclusiveTransgender",
+                optional: true
+            },
+            {
+                text: "LGBTQ Inclusive",
+                input_type: "lgbtq_toggle",
+                field_name: "inclusiveSexuality",
+                optional: true
+            },
+        ]
     },
     {
         text: "Bathroom Location Description",

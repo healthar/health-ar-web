@@ -109,6 +109,7 @@ INPUT & TEXTAREA & DATE
 
 .form-text-area {
   display: block;
+  box-sizing: border-box;
   width: 100%;
   font-size: 14px;
   color: $dark-grey;
@@ -509,4 +510,58 @@ DROPDOWN MULTIPLE
 .dropdown--disabled {
   width: 5px;
   padding: 0px;
+}
+
+/*
+==========================
+TOGGLE QA
+==========================
+*/
+.toggle-qa {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+
+  .form-question {
+    font-size: 12px;
+  }
+}
+/*
+==========================
+TOGGLE
+==========================
+*/
+
+.toggle-switch-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 150px;
+
+  button {
+    border-radius: 0px;
+    background-color: $pale-grey;
+    border: white;
+    box-shadow: $box-shadow;
+    cursor: pointer;
+  }
+
+  .fa-check,
+  .fa-times {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+
+  .toggle-yes {
+    background-color: $theme-green--lighter;
+    .fa-check {
+      color: $theme-green--dark;
+    }
+  }
+  .toggle-no {
+    background-color: $attention-red--light;
+    .fa-times {
+      color: $attention-red;
+    }
+  }
 }

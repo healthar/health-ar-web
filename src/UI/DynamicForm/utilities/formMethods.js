@@ -92,6 +92,8 @@ export const _getDefaultFormData = questions => {
         // to support difference between user text and stored value
         const value = first_option.value || first_option.text || first_option;
         form_data[field_name] = value;
+      } else if (input_type.indexOf("_toggle") !== -1) {
+        form_data[field_name] = null;
       } else form_data[field_name] = "";
 
       // insert hidden field values from hiddenData
@@ -159,17 +161,17 @@ export const _toggleValueInArray = (array, value, maxChoices) => {
 };
 
 export const _searchForDataBy = (field_type, name, questions) => {
-  return questions.some(item => {
-    if (item.row || item.category_contents) {
+  for (var i = 0; i < questions.length; i++) {
+    if (questions[i].row || questions[i].category_contents) {
       return _searchForDataBy(
         field_type,
         name,
-        item.row || item.category_contents
+        questions[i].row || questions[i].category_contents
       );
     }
-    if (item[field_type] === name) {
-      return item;
+    if (questions[i][field_type] === name) {
+      return questions[i];
     }
-    return false;
-  });
+  }
+  return false;
 };
