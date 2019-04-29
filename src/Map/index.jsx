@@ -71,6 +71,7 @@ class MapLayout extends Component {
         position: [37.330917, -121.889185],
         reviewFormVisibility: false,
         zoom: 13,
+        searchVal: null
     };
     
     /**
@@ -157,9 +158,13 @@ class MapLayout extends Component {
     getLocations(radius, lat, lng) {
         this.setState({ loading: true });
 
+        console.log(`{
+            GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng}, name: ${(this.state.searchVal ? '"' + this.state.searchVal + '"' : null)})
+        }`);
+
         axios.post(process.env.REACT_APP_API_URL + 'graphql', {
             query: `{
-				GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng})
+				GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng}, name: ${(this.state.searchVal ? '"' + this.state.searchVal + '"' : null)})
 			}`
         }).then((result) => {
             console.log(result);
@@ -279,8 +284,18 @@ class MapLayout extends Component {
 
             <div className={"topbar " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
                 <div className="search">
-                    <input type="text" placeholder="1 Hacker Way, Menlo Park" onChange={(val) => { this.setState({ searchVal: val.target.value }) }}></input>
-                    <button>Search</button>
+                    <input type="text" placeholder="1 Hacker Way, Menlo Park"
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            this.getLocations(1, this.state.position[0], this.state.position[1]);           
+                        }
+                    }}
+                    onChange={(val) => { 
+                        this.setState({ searchVal: val.target.value })
+                    }}></input>
+                    <button onClick={() => {
+                        this.getLocations(1, this.state.position[0], this.state.position[1]);           
+                    }}>Search</button>
                 </div>
                 <div className="categories">
                     <div className="all">all</div>
