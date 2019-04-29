@@ -3,6 +3,7 @@ import './App.scss';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from './Login';
 import Map from './Map';
+import ReviewForm from './ReviewForm';
 
 function App() {
   return (
@@ -10,8 +11,8 @@ function App() {
         <Switch>
           <Route
             exact={true}
-            path="/"
-            component={Login}
+            path="/review"
+            component={ReviewForm}
           />
            <Route
             exact={true}

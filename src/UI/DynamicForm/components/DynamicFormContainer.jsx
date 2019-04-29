@@ -86,7 +86,7 @@ class DynamicFormContainer extends React.Component {
    *   - observation only
    * - toggles or sets response value for 'question'
    */
-  _handleInputChange = ({ currentTarget, min, max }) => {
+  _handleInputChange = ({ currentTarget, min, max, value_type }) => {
     const { name, value, type } = currentTarget;
 
     const form_data = { ...this.state.form_data };
@@ -99,20 +99,22 @@ class DynamicFormContainer extends React.Component {
       name,
       this.props.questions
     );
-
     const optional = QA_Object.optional;
-
+    const inputType = QA_Object.input_type;
     // provides observational window into form data
     // no control over behavior at this time
     onInputChange && onInputChange(name, value, form_data);
 
-    form_data[name] =
-      type === "checkbox"
-        ? _toggleValueInArray(form_data[name], value, max)
-        : (form_data[name] = value);
+    if (type === 'checkbox') {
+      form_data[name] = _toggleValueInArray(form_data[name], value, max);
+    } else if (type === 'submit' && inputType.indexOf("_toggle") !== -1) {
+      form_data[name] = form_data[name] === value_type ? "" : value_type
+    } else {
+      form_data[name] = value;
+    }
 
     const validateField = onValidate || isFieldValid;
-    fields_is_valid[`${name}_is_valid`] = validateField(
+    fields_is_valid[`${name}_is_valid`] = optional ? true : validateField(
       type,
       form_data[name],
       min,

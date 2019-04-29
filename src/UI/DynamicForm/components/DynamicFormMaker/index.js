@@ -144,6 +144,22 @@ const questionMaker = ({
     QuestionComponent = components[input_type];
   }
 
+  if (input_type.indexOf('_toggle') !== -1 ){
+    const imgs = {
+      bathroom_toggle: require('assets/lgbtq.png'),
+      trans_toggle: require('assets/trans.png'),
+      lgbtq_toggle: require('assets/lgbtq.png'),
+    }
+    return (
+      <div key={"question_" + field_name} className={`form-QA ${style_name} toggle-qa`}>
+              <img className="form-img" alt="form-qa" src={imgs[input_type]} />
+        <label className="form-question">{text}</label>
+        {subtext ? <div className="form-subtext">{subtext}</div> : null}
+        {components.toggle(question, onFormChange, form_data, editable)}
+    </div>
+    )
+  }
+
   return (
     <div key={"question_" + field_name} className={`form-QA ${style_name}`}>
       <label className="form-question">{text}</label>
