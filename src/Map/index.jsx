@@ -11,8 +11,8 @@ import { Map, Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
 
 const L = require('leaflet');
 
-const redMarker = L.icon({
-    iconUrl: 'https://i.imgur.com/ruUU57h.png',
+const no_review_marker = L.icon({
+    iconUrl: require('assets/no-review@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(16, 0),
     popupAnchor: null,
@@ -21,8 +21,8 @@ const redMarker = L.icon({
     shadowAnchor: null
 });
 
-const blueMarker = L.icon({
-    iconUrl: 'https://i.imgur.com/jZSdhH5.png',
+const general_marker = L.icon({
+    iconUrl: require('assets/general@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(16, 0),
     popupAnchor: null,
@@ -31,8 +31,28 @@ const blueMarker = L.icon({
     shadowAnchor: null
 });
 
-const purpleMarker = L.icon({
-    iconUrl: 'https://i.imgur.com/Jx16f2H.png',
+const medical_marker = L.icon({
+    iconUrl: require('assets/health@0.5x.png'),
+    iconSize: new L.Point(32, 32),
+    iconAnchor: new L.Point(16, 0),
+    popupAnchor: null,
+    shadowUrl: null,
+    shadowSize: null,
+    shadowAnchor: null
+});
+
+const bathroom_marker = L.icon({
+    iconUrl: require('assets/bathroom@0.5x.png'),
+    iconSize: new L.Point(32, 32),
+    iconAnchor: new L.Point(16, 0),
+    popupAnchor: null,
+    shadowUrl: null,
+    shadowSize: null,
+    shadowAnchor: null
+});
+
+const school_marker = L.icon({
+    iconUrl: require('assets/schools@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(16, 0),
     popupAnchor: null,
@@ -210,7 +230,7 @@ class MapLayout extends Component {
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                 {this.state.locations.map((location, id) => {
-                    return <Marker icon={(location.reviews.length > 0) ? blueMarker : redMarker} position={location.geometry.location} onClick={() => {
+                    return <Marker icon={(location.reviews.length > 0) ? general_marker : no_review_marker} position={location.geometry.location} onClick={() => {
                         this.setState({
                             currentLocation: location
                         })
