@@ -1,14 +1,14 @@
 import React from "react";
 import './FormBtns.scss';
 
-export const SubmitBtn = ({ form_data, disabled, onSubmit }) => {
+export const SubmitBtn = ({ form_data, disabled, onSubmit, btnText }) => {
   return (
     <React.Fragment>
       <hr className="form-hline" />
       <input
         className={disabled ? "form-btn--disabled" : "form-btn"}
         type="submit"
-        value={disabled ? "Incomplete" : "Submit"}
+        value={disabled ? "Incomplete" : btnText || "Submit" }
         disabled={disabled}
         onClick={e => {
           e.preventDefault();

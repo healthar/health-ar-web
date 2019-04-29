@@ -161,6 +161,7 @@ class DynamicFormContainer extends React.Component {
         form_data={form_data}
         disabled={!submitBtnIsEnabled}
         onSubmit={this.props.onSubmit}
+        btnText={this.props.btnText}
       />
     ) : (
       <EditableModeControls
