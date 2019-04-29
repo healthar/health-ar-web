@@ -156,8 +156,8 @@ class DynamicFormContainer extends React.Component {
 
   render() {
     const { editable, editableMode, form_data, fields_is_valid } = this.state;
-    let submitBtnIsEnabled =
-      _determineSubmitBtnState(fields_is_valid) === SubmitBtnState.ENABLED;
+    let submitBtnIsEnabled = true
+      // _determineSubmitBtnState(fields_is_valid) === SubmitBtnState.ENABLED;
 
     let renderSubmitBtn = !editableMode ? (
       <SubmitBtn
