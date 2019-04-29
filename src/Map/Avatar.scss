@@ -1,0 +1,43 @@
+@import 'styles/_shared.scss';
+
+.avatar-container {
+    position: absolute;
+    z-index: 1000;
+
+    right: 20px;
+    top: 20px;
+
+    cursor: pointer;
+    box-shadow: $box-shadow;
+}
+
+.avatar-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.menu-container {
+    background-color: white;
+    padding: 10px 0px;
+    position: absolute;
+    right: 5px;
+    width: 75px;
+}
+
+.menu-btn {
+    background-color: white;
+    color: $blue;
+    border: none;
+    float: right;
+    font-weight: 600;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $blue-light;
+        color: $blue-hover;
+    }
+}
+
