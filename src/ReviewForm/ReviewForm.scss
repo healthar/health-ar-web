@@ -3,11 +3,16 @@
 
 .review-form--page {
     background-color: $palest-grey;
-    padding: 50px;
     height: 100vh;
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 10000;
 }
+
 .review-form--container {
-    margin: 10% auto;
     width: 450px;
     padding: 30px;
     background-color: white;

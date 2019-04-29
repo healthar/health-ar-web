@@ -1,12 +1,5 @@
 @import 'styles/_shared.scss';
 
-@keyframes enter-card {
-    to {
-        transform: translateY(0%);
-        opacity: 1;
-    }
-}
-
 .login-page {
     width: 100vw;
     min-height: 100vh;
@@ -22,10 +15,10 @@
     align-items: center;
 
     h2 {
-        text-align: left;
+        text-align: center;
         width: 100%;
-        font-size: 24px;
-        margin-bottom: 48px;
+        font-size: 32px;
+        margin-bottom: 32px;
     }
 }
 
@@ -34,24 +27,6 @@
     width: 400px;
     box-shadow: $box-shadow;
     padding: 32px;
-
-    animation: enter-card .6s ease forwards;
-    transform: translateY(20%);
-    opacity: 0;
-
-    p.error {
-        padding: 8px;
-        border-radius: 4px;
-        text-align: center;
-        background: $attention-red;
-        color: white;
-        margin-top: 16px;
-    }
-
-    p.signup-msg {
-        text-align: left;
-        margin-top: 24px;
-    }
 }
 
 @media (max-width: 600px)  {

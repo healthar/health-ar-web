@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from './Login';
 import Map from './Map';
 import ReviewForm from './ReviewForm';
+import Signup from './Signup';
 
 function App() {
   return (
@@ -18,6 +19,16 @@ function App() {
             exact={true}
             path="/map"
             component={Map}
+          />
+          <Route
+            exact={true}
+            path="/"
+            component={Login}
+          />
+          <Route
+            exact={true}
+            path="/signup"
+            component={Signup}
           />
         </Switch>
       </BrowserRouter>

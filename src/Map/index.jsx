@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from "react-router";
 import './Map.scss';
+import ReviewForm from '../ReviewForm/index';
 import MapData from './Map.data.js';
 
 import { Map, Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
-
-const position = [37.330917, -121.889185]
 
 const L = require('leaflet');
 
@@ -44,9 +44,10 @@ class MapLayout extends Component {
     state = {
         loading: false,
         locations: [],
-        currentLocation: {}
+        currentLocation: {},
+        position: [37.330917, -121.889185]
     };
-
+    
     /**
      * 
      * @param {*} reviews the reviews associated with a location
@@ -159,13 +160,33 @@ class MapLayout extends Component {
     }
 
     componentDidMount() {
-        this.getLocations(1, 37.330917, -121.889185); // default locations
+        if(this.getUser() == -1)
+            this.props.history.push("/");
+        else
+            this.getLocations(1, 37.330917, -121.889185); // default locations
+    }
+
+    getUser() {
+        if(localStorage.getItem('user') == null || JSON.parse(localStorage.getItem('user')).id == null)
+            return -1;
+        else
+            return JSON.parse(localStorage.getItem('user'));
     }
 
     render() {
         return (<div className='map-layout'>
-            <Map center={position} zoom={13} onViewportChanged={({ center, zoom }) => {
+
+            {(Object.keys(this.state.currentLocation).length > 0) ?
+                <ReviewForm locationID={this.state.currentLocation.place_id} creatorID={this.getUser().id} createdReview={() => {
+                    this.getLocations(1, this.state.position[0], this.state.position[1]); // to update view on drag
+                }}></ReviewForm>
+            :null}
+
+            <Map center={this.state.position} zoom={13} onViewportChanged={({ center, zoom }) => {
                 this.getLocations(1, center[0], center[1]); // to update view on drag
+                this.setState({
+                    position: center
+                })
             }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

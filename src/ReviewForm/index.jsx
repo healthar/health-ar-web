@@ -27,38 +27,53 @@ class ReviewForm extends React.Component {
     }
 
     submitHandler = (formData) => {
-         // needs creatorID and locationID!!
+        // needs creatorID and locationID!!
         let formattedData = this.formatData(formData)
         let {
-            creatorID,
-            locationID,
             inclusiveSexuality,
             inclusiveTransgender,
             unisexBathroom,
             bathroomLocationDescription,
             description
         } = formattedData
+
+        let creatorID = this.props.creatorID;
+        let locationID = this.props.locationID;
+
         this.setState({ loading: true });
 
         console.log(formattedData);
 
         console.log(process.env.REACT_APP_API_URL + 'graphql');
 
+        console.log(`mutation {
+            CreateReview(
+                creatorID: "${ creatorID}",
+                locationID: "${ locationID}",
+                inclusiveSexuality: ${ inclusiveSexuality},
+                inclusiveTransgender: ${ inclusiveTransgender},
+                unisexBathroom: ${ unisexBathroom},
+                bathroomLocationDescription: ${ (bathroomLocationDescription) ? '"' + bathroomLocationDescription + '"' : null},
+                description: ${ (description) ? '"' + description + '"' : null}
+            )
+        }`);
+
         axios.post(process.env.REACT_APP_API_URL + 'graphql', {
-            mutation: `{
-				CreateReview(
-                    creatorID: ${creatorID},
-                    locationID: ${locationID},
+            query: `mutation {
+        		CreateReview(
+                    creatorID: "${creatorID}",
+                    locationID: "${locationID}",
                     inclusiveSexuality: ${inclusiveSexuality},
                     inclusiveTransgender: ${inclusiveTransgender},
                     unisexBathroom: ${unisexBathroom},
-                    bathroomLocationDescription: ${bathroomLocationDescription},
-                    description: ${description}
+                    bathroomLocationDescription: ${ (bathroomLocationDescription) ? '"' + bathroomLocationDescription + '"' : null},
+                    description: ${ (description) ? '"' + description + '"' : null}
                 )
-			}`
+        	}`
         }).then((result) => {
             console.log(result);
             this.setState({ loading: false, data: result.data });
+            this.props.createdReview();
         }).catch((err) => {
             this.setState({ loading: false, data: [] });
         });

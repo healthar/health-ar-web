@@ -58,7 +58,7 @@ SUBMIT BUTTON
 }
 .form-btn--disabled {
   @include system-button($lighter-grey, $lighter-grey);
-  cursor: disabled;
+  cursor: unset;
   width: 200px;
 }
 .hline,
