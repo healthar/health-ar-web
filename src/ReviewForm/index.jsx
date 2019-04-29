@@ -37,6 +37,8 @@ class ReviewForm extends React.Component {
             description
         } = formattedData
 
+        let lat = this.props.lat;
+        let lng = this.props.lng;
         let creatorID = this.props.creatorID;
         let locationID = this.props.locationID;
 
@@ -48,6 +50,8 @@ class ReviewForm extends React.Component {
 
         console.log(`mutation {
             CreateReview(
+                lat: "${lat}",
+                lng: "${lng}",
                 creatorID: "${ creatorID}",
                 locationID: "${ locationID}",
                 inclusiveSexuality: ${ inclusiveSexuality},
