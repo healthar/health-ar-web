@@ -22,7 +22,7 @@ class MapLayout extends Component {
             GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng})
         }`);
 
-		axios.post('http://localhost:4000/graphql', {
+		axios.post(process.env.API_URL + 'graphql', {
 			query: `{
 				GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng})
 			}`
