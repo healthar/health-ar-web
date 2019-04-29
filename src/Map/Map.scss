@@ -23,6 +23,78 @@
         }
     }
 
+    .topbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #f2f2f2;
+        z-index: 10000;
+        padding: 8px;
+        margin: 0 auto;
+        max-width: 400px;
+        border-radius: 0 0 8px 8px;
+        transition: 0.6s ease all;
+
+        .search {
+            width: 100%;
+            display: flex;
+            justify-content: stretch;
+        }
+
+        input {
+            height: 32px;
+            border: none;
+            outline: none;
+            padding: 0 8px;
+            flex-grow: 1;
+            margin-right: 8px;
+            border-radius: 8px;
+        }
+
+        button {
+            border-radius: 8px;
+            outline: none;
+            border: none;
+            background: #333;
+            color: white;
+            padding: 0 12px;
+            height: 32px;
+            line-height: 32px;
+            vertical-align: center;
+            text-align: center;
+            transition: 0.2s ease all;
+            cursor: pointer;
+
+            &:hover {
+                background: $attention-red;
+            }
+        }
+
+        .categories {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-evenly;
+
+            div {
+                background: $blue;
+                padding: 8px 12px;
+                border-radius: 8px;
+                transition: 0.2s ease all;
+                cursor: pointer;
+                color: white;
+
+                &:hover {
+                    background: $attention-red;
+                }
+            }
+        }
+
+        &.show {
+            right: 30vw;
+        }
+    }
+
     .sidebar {
         background: white;
         position: absolute;
@@ -46,9 +118,9 @@
 
     @media (max-width: 900px) {
         .sidebar {
-            top: 40vh;
+            top: 55vh;
             width: 100vw;
-            height: 60vh;
+            height: 45vh;
             overflow-y: scroll;
 
             &.show {
@@ -58,9 +130,19 @@
         }
 
         &.show .leaflet-container {
-            height: 40%;
+            height: 55%;
             width: 100%;
             margin: 0 auto;
+        }
+
+        &.show .topbar {
+            right: 0;
+        }
+
+        .review-form--page {
+            z-index: 100000;
+            height: 100%;
+            width: 100%;
         }
     }
 

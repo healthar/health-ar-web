@@ -142,7 +142,12 @@ class MapLayout extends Component {
 			}`
         }).then((result) => {
             console.log(result);
-            this.setState({ loading: false, locations: result.data.data.GetLocationsNearby });
+            this.setState({
+                loading: false,
+                locations: result.data.data.GetLocationsNearby,
+                currentLocation: (result.data.data.GetLocationsNearby.filter(x => x.place_id == this.state.currentLocation.place_id).length > 0) ? result.data.data.GetLocationsNearby.filter(x => x.place_id == this.state.currentLocation.place_id)[0] : {},
+            })
+            this.toggleReviewFormVisibility(false);
         }).catch((err) => {
             this.setState({ loading: false, locations: [] });
         });
@@ -155,9 +160,7 @@ class MapLayout extends Component {
 				GetLocationDetails(id: ${id})
 			}`
         }).then((result) => {
-            console.log(result);
             this.setState({ loading: false, locationDetails: result.data.data.GetLocationDetails });
-            console.log(result.data.data.GetLocationDetails);
         }).catch((err) => {
             this.setState({ loading: false, locationDetails: {} });
         });
@@ -177,8 +180,15 @@ class MapLayout extends Component {
             return JSON.parse(localStorage.getItem('user'));
     }
 
-    toggleReviewFormVisibility = () => {
-        this.setState({ reviewFormVisibility: this.state.reviewFormVisibility ? false : true })
+    toggleReviewFormVisibility = (_set) => {
+        if(_set != null)
+            this.setState({ reviewFormVisibility: _set })
+        else
+            this.setState({ reviewFormVisibility: this.state.reviewFormVisibility ? false : true })
+    }
+
+    componentDidUpdate() {
+        console.log("Updated Map");
     }
 
     render() {
@@ -186,7 +196,7 @@ class MapLayout extends Component {
         let currentLocationAggregate = this.getAverageForLocation(this.state.currentLocation.reviews)
         return (<div className={"map-layout " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
 
-            {(Object.keys(this.state.currentLocation).length > 0)  && reviewFormVisibility ?
+            {(Object.keys(this.state.currentLocation).length > 0) && reviewFormVisibility ?
                 <ReviewForm 
                     locationID={this.state.currentLocation.place_id} 
                     creatorID={this.getUser().id} 
@@ -211,10 +221,10 @@ class MapLayout extends Component {
                 />
                 {this.state.locations.map((location, id) => {
                     return <Marker icon={(location.reviews.length > 0) ? blueMarker : redMarker} position={location.geometry.location} onClick={() => {
+                        this.toggleReviewFormVisibility(false);                        
                         this.setState({
                             currentLocation: location
                         })
-
                         this.getLocationDetails(location.place_id);
                     }}>
                         <Tooltip className={"tooltip"}>
@@ -237,6 +247,19 @@ class MapLayout extends Component {
                         />
                     :  <p>Please select a location</p>
                 }
+            </div>
+
+            <div className={"topbar " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
+                <div className="search">
+                    <input type="text" placeholder="1 Hacker Way, Menlo Park" onChange={(val) => { this.setState({ searchVal: val.target.value }) }}></input>
+                    <button>Search</button>
+                </div>
+                <div className="categories">
+                    <div className="all">all</div>
+                    <div className="schools">schools</div>
+                    <div className="medical">medical</div>
+                    <div className="bathrooms">bathrooms</div>
+                </div>
             </div>
         </div>)
     }
