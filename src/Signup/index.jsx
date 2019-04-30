@@ -76,8 +76,10 @@ class Signup extends Component {
     }
 
     render() {
+        let logo = require('assets/all_in_icon@3x.png')
         return (
             <div className='login-page'>
+                <img src={logo} alt='logo' className='logo' />
                 <section className='login-container'>
                     <section className='login--left'>
                         <div className='login-form'>
