@@ -266,20 +266,23 @@ class MapLayout extends Component {
                 : null}
 
             <Map minZoom={15} center={this.state.position} zoom={this.state.zoom} onViewportChanged={({ center, zoom }) => {
-                console.log(zoom);
-                this.getLocations(1, center[0], center[1]); // to update view on drag
-                this.setState({
-                    position: center,
-                    zoom,
-                    currentLocation: {}
-                })
+                if(!this.state.reviewFormVisibility)
+                {
+                    console.log(zoom);
+                    this.getLocations(1, center[0], center[1]); // to update view on drag
+                    this.setState({
+                        position: center,
+                        zoom,
+                        currentLocation: {}
+                    })
+                }
             }}>
                 <TileLayer
                     url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                 <LayerGroup>
-                    { this.state.zoom < 17 ?
+                    { this.state.zoom < 16 ?
                         this.state.reviews.map((review, id) => {
                             return <Circle center={[review.lat, review.lng]} color={"none"} fillColor={((review.inclusiveTransgender == false || review.inclusiveSexuality == false) ? "red" : "green")} radius={200} />
                         })
