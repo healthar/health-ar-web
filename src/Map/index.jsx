@@ -27,8 +27,18 @@ const no_review_marker = L.icon({
     shadowAnchor: null
 });
 
-const general_marker = L.icon({
-    iconUrl: require('assets/general@0.5x.png'),
+const general_good_marker = L.icon({
+    iconUrl: require('assets/green@0.5x.png'),
+    iconSize: new L.Point(32, 32),
+    iconAnchor: new L.Point(xOffset, yOffset),
+    popupAnchor: null,
+    shadowUrl: null,
+    shadowSize: null,
+    shadowAnchor: null
+});
+
+const general_bad_marker = L.icon({
+    iconUrl: require('assets/red@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
     popupAnchor: null,
@@ -244,6 +254,15 @@ class MapLayout extends Component {
         this.props.history.push('/');
     }
 
+    getMarker = (reviews) => {
+        let averages = this.getAverageForLocation(reviews);
+        if (averages.inclusiveSexuality === 'no' || averages.inclusiveTransgender === 'no') {
+            return general_bad_marker;
+        } else {
+            return general_good_marker;
+        }
+    }
+
     render() {
         let { reviewFormVisibility } = this.state;
         let currentLocationAggregate = this.getAverageForLocation(this.state.currentLocation.reviews)
@@ -289,7 +308,7 @@ class MapLayout extends Component {
                     :null}
                 </LayerGroup>
                 {this.state.locations.map((location, id) => {
-                    return <Marker icon={(location.reviews.length > 0) ? general_marker : no_review_marker} position={location.geometry.location} onClick={() => {
+                    return <Marker icon={(location.reviews.length > 0) ? this.getMarker(location.reviews) : no_review_marker} position={location.geometry.location} onClick={() => {
                         this.toggleReviewFormVisibility(false);
                         this.setState({
                             currentLocation: location
