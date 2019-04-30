@@ -149,16 +149,18 @@ ROW QA
 ==========================
 */
 .form-QA--row {
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 5px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 32px;
   .form-QA {
     display: inline-block;
   }
 }
 @media (max-width: 700px) {
   .form-QA--row {
-    grid-auto-flow: row;
+    display: flex;
+    margin: 0;
+    justify-content: space-between;
   }
 }
 
