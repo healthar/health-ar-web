@@ -40,7 +40,9 @@ class Login extends Component {
                 })
             else
             {
-                localStorage.setItem('user', JSON.stringify(result.data.data.Login));
+                localStorage.setItem('user', JSON.stringify({
+                    id: result.data.data.Login
+                }));
                 this.props.history.push('/map');
             }
         }).catch((err) => {

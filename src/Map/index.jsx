@@ -6,6 +6,7 @@ import ReviewForm from '../ReviewForm/index';
 import MapData from './Map.data.js';
 import Location from './Location';
 import { AggregateRating } from './Ratings'
+import Avatar from './Avatar';
 
 import { Map, Marker, Popup, TileLayer, Tooltip, Circle, LayerGroup, LayersControl } from 'react-leaflet'
 
@@ -235,11 +236,18 @@ class MapLayout extends Component {
         console.log("Updated Map");
     }
 
+    logout = () =>  {
+        localStorage.removeItem("user");
+        this.props.history.push('/');
+    }
+
     render() {
         let { reviewFormVisibility } = this.state;
         let currentLocationAggregate = this.getAverageForLocation(this.state.currentLocation.reviews)
         return (<div className={"map-layout " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
 
+            <Avatar logout={this.logout} />
+            
             {(Object.keys(this.state.currentLocation).length > 0) && reviewFormVisibility ?
                 <ReviewForm
                     locationID={this.state.currentLocation.place_id}
