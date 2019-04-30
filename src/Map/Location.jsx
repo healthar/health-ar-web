@@ -33,7 +33,7 @@ const Location = ({ currentLocation, aggregate, toggleReviewFormVisibility }) =>
     }
     return (
         <section className='location--container'>
-            <img className='location--hero-img' alt="location" src='https://placeimg.com/450/300/arch' />
+            <img className='location--hero-img' alt="location" src='http://placeimg.com/450/300/arch' />
             <div className='location--header'>{currentLocation.name}</div>
             <div className="location-icons">
                 <AggregateRating reviews={aggregate} />
