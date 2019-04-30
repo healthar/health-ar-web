@@ -50,8 +50,8 @@ class ReviewForm extends React.Component {
 
         console.log(`mutation {
             CreateReview(
-                lat: "${lat}",
-                lng: "${lng}",
+                lat: ${lat},
+                lng: ${lng},
                 creatorID: "${ creatorID}",
                 locationID: "${ locationID}",
                 inclusiveSexuality: ${ inclusiveSexuality},
@@ -65,6 +65,8 @@ class ReviewForm extends React.Component {
         axios.post(process.env.REACT_APP_API_URL + 'graphql', {
             query: `mutation {
         		CreateReview(
+                    lat: ${lat},
+                    lng: ${lng},
                     creatorID: "${creatorID}",
                     locationID: "${locationID}",
                     inclusiveSexuality: ${inclusiveSexuality},
