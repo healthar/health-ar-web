@@ -10,7 +10,7 @@
 .login-page {
     width: 100vw;
     min-height: 100vh;
-    background-color: $palest-grey;
+    background: linear-gradient(to bottom right, $blue, $purple);
     position: absolute;
     top: 0px;
     left: 0px;
@@ -22,19 +22,22 @@
     align-items: center;
 
     h2 {
-        text-align: left;
+        text-align: center;
         width: 100%;
-        font-size: 24px;
-        margin-bottom: 48px;
+        font-size: 38px;
+        margin-bottom: 40px;
+        font-weight: 700;
+        color: $darker-grey;
     }
 }
 
 .login-container {
     background-color: white;
     width: 400px;
-    box-shadow: $box-shadow;
+    box-shadow: $box-shadow-blue;
     padding: 32px;
 
+    border-radius: 4px;
     animation: enter-card .6s ease forwards;
     transform: translateY(20%);
     opacity: 0;
@@ -49,9 +52,18 @@
     }
 
     p.signup-msg {
-        text-align: left;
-        margin-top: 24px;
+        color: $dark-grey;
+        text-align: center;
+        margin-top: 36px;
+
+        a {
+            color: $blue;
+            text-decoration: none;
+            font-weight: 600;
+            padding-top: 20px;
+        }
     }
+
 }
 
 @media (max-width: 600px)  {
@@ -66,45 +78,45 @@
     }
 }
 
-.registration--patient,
-.registration--doctor {
-    color: white;
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
+// .registration--patient,
+// .registration--doctor {
+//     color: white;
+//     font-size: 24px;
+//     font-weight: 600;
+//     text-align: center;
 
-    padding: 20px;
+//     padding: 20px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-around;
+//     align-items: center;
+// }
 
-.registration--patient {
-    grid-area: patient;
-    background-color: $blue-medium;
-}
+// .registration--patient {
+//     grid-area: patient;
+//     background-color: $blue-medium;
+// }
 
-.registration--doctor {
-    grid-area: doctor;
-    background-color: $blue-light;
-}
+// .registration--doctor {
+//     grid-area: doctor;
+//     background-color: $blue-light;
+// }
 
-.btn--main {
-    @include system-button($blue, $blue-hover);
-    font-weight: 600;
-    margin: 0 auto;
-    padding: 10px;
-}
+// .btn--main {
+//     @include system-button($blue, $blue-hover);
+//     font-weight: 600;
+//     margin: 0 auto;
+//     padding: 10px;
+// }
 
-.registration--header {
-    padding-bottom: -30px;
-}
+// .registration--header {
+//     padding-bottom: -30px;
+// }
 
-@media (max-width: 650px)  {
-    .login-container {
-        grid-template-columns: 1fr;
-        grid-template-areas: "login" "registration";
-    }
-}
+// @media (max-width: 650px)  {
+//     .login-container {
+//         grid-template-columns: 1fr;
+//         grid-template-areas: "login" "registration";
+//     }
+// }
