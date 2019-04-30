@@ -17,10 +17,14 @@ const L = require('leaflet');
 const xOffset = 16;
 const yOffset = 32;
 
+const tooltipXOffset = 10
+const tooltipYOffset = -24
+
 const no_review_marker = L.icon({
     iconUrl: require('assets/no-review@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -31,6 +35,7 @@ const general_good_marker = L.icon({
     iconUrl: require('assets/green@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -41,6 +46,7 @@ const general_bad_marker = L.icon({
     iconUrl: require('assets/red@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -51,6 +57,7 @@ const medical_marker = L.icon({
     iconUrl: require('assets/health@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -61,6 +68,7 @@ const bathroom_marker = L.icon({
     iconUrl: require('assets/bathroom@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -71,6 +79,7 @@ const school_marker = L.icon({
     iconUrl: require('assets/schools@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
