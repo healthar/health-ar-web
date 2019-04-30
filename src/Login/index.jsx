@@ -73,9 +73,7 @@ class Login extends Component {
                             :null}
 
                             <p className="signup-msg">
-                                Need an account?
-                                <br />
-                                <Link to="/signup">Signup Here</Link>
+                                Need an account? <Link to="/signup">Signup Here</Link>
                             </p>
                         </div>
                     </section>

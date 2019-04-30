@@ -10,7 +10,7 @@ import Avatar from './Avatar';
 
 import { Map, Marker, Popup, TileLayer, Tooltip, Circle, LayerGroup, LayersControl } from 'react-leaflet'
 
-let {Overlay} = LayersControl
+let { Overlay } = LayersControl
 
 const L = require('leaflet');
 
@@ -161,16 +161,19 @@ class MapLayout extends Component {
      * @param {*} lat latitude of the center of the search
      * @param {*} lng longitude of the center of the search
      */
-    getLocations(radius, lat, lng) {
+    getLocations(radius, lat, lng, category) {
         this.setState({ loading: true });
 
+        if(!category)
+            category = this.state.category;
+
         console.log(`{
-            GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng}, name: ${(this.state.searchVal ? '"' + this.state.searchVal + '"' : null)})
+            GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng}, name: ${(this.state.searchVal ? '"' + this.state.searchVal + '"' : null)}, category: ${((category != null) ? '"' + category + '"' : null)})
         }`);
 
         axios.post(process.env.REACT_APP_API_URL + 'graphql', {
             query: `{
-				GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng}, name: ${(this.state.searchVal ? '"' + this.state.searchVal + '"' : null)})
+				GetLocationsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng}, name: ${(this.state.searchVal ? '"' + this.state.searchVal + '"' : null)}, category: ${((category != null) ? '"' + category + '"' : null)})
 			}`
         }).then((result) => {
             console.log(result);
@@ -236,7 +239,7 @@ class MapLayout extends Component {
         console.log("Updated Map");
     }
 
-    logout = () =>  {
+    logout = () => {
         localStorage.removeItem("user");
         this.props.history.push('/');
     }
@@ -247,7 +250,7 @@ class MapLayout extends Component {
         return (<div className={"map-layout " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
 
             <Avatar logout={this.logout} />
-            
+
             {(Object.keys(this.state.currentLocation).length > 0) && reviewFormVisibility ?
                 <ReviewForm
                     title={this.state.currentLocation.name}
@@ -275,11 +278,11 @@ class MapLayout extends Component {
                     url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
-                    <LayerGroup>
-                        {this.state.reviews.map((review, id) => {
-                            return <Circle center={[review.lat, review.lng]} color={"none"} fillColor={((review.inclusiveTransgender == false || review.inclusiveSexuality == false) ? "red" : "green")} radius={200} />
-                        })}
-                    </LayerGroup>
+                <LayerGroup>
+                    {this.state.reviews.map((review, id) => {
+                        return <Circle center={[review.lat, review.lng]} color={"none"} fillColor={((review.inclusiveTransgender == false || review.inclusiveSexuality == false) ? "red" : "green")} radius={200} />
+                    })}
+                </LayerGroup>
                 {this.state.locations.map((location, id) => {
                     return <Marker icon={(location.reviews.length > 0) ? general_marker : no_review_marker} position={location.geometry.location} onClick={() => {
                         this.toggleReviewFormVisibility(false);
@@ -319,17 +322,37 @@ class MapLayout extends Component {
                             }
                         }}
                         onChange={(val) => {
-                            this.setState({ searchVal: val.target.value })
+                            this.setState({ searchVal: val.target.value, category: "all" })
                         }}></input>
                     <button onClick={() => {
                         this.getLocations(1, this.state.position[0], this.state.position[1]);
                     }}>Search</button>
                 </div>
                 <div className="categories">
-                    <div className="all">all</div>
-                    <div className="schools">schools</div>
-                    <div className="medical">medical</div>
-                    <div className="bathrooms">bathrooms</div>
+                    <div className={"all " + (this.state.category == "all" ? "active" : "")} onClick={() => {
+                        this.setState({
+                            category: "all"
+                        })
+                        this.getLocations(1, this.state.position[0], this.state.position[1], "all");
+                    }}>all</div>
+                    <div className={"schools " + (this.state.category == "schools" ? "active" : "")} onClick={() => {
+                        this.setState({
+                            category: "schools"
+                        })
+                        this.getLocations(1, this.state.position[0], this.state.position[1], "schools");
+                    }}>schools</div>
+                    <div className={"medical " + (this.state.category == "medical" ? "active" : "")} onClick={() => {
+                        this.setState({
+                            category: "medical"
+                        })
+                        this.getLocations(1, this.state.position[0], this.state.position[1], "medical");
+                    }}>medical</div>
+                    <div className={"restroom " + (this.state.category == "restroom" ? "active" : "")} onClick={() => {
+                        this.setState({
+                            category: "restroom"
+                        })
+                        this.getLocations(1, this.state.position[0], this.state.position[1], "restroom");
+                    }}>restrooms</div>
                 </div>
             </div>
         </div>)
