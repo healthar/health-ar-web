@@ -84,8 +84,33 @@
                 cursor: pointer;
                 color: white;
 
+                // &:hover {
+                //     background: $attention-red;
+                // }
+            }
+
+            .all {
+                background-color: $general;
                 &:hover {
-                    background: $attention-red;
+                    background-color: $general--hover;
+                }
+            }
+            .schools {
+                background-color: $schools;
+                &:hover {
+                    background-color: $schools--hover;
+                }
+            }
+            .medical {
+                background-color: $medical;
+                &:hover {
+                    background-color: $medical--hover;
+                }
+            }
+            .bathrooms {
+                background-color: $bathrooms;
+                &:hover {
+                    background-color: $bathrooms--hover;
                 }
             }
         }
@@ -155,48 +180,7 @@
         .tooltip-icons {
             margin-top: 4px;
             display: flex;
-            justify-content: center;
-            // span {
-            //     display: block;
-            //     background: red;
-            //     width: 18px;
-            //     height: 18px;
-            //     margin-left: 8px;
-            //     border-radius: 100%;
-            //     margin-bottom: 24px;
-            //     line-height: 18px;
-            //     vertical-align: middle;
-            //     text-align: center;
-
-            //     &:first-child {
-            //         margin: 0;
-            //     }
-
-            //     &.trans {
-            //         background: url("https://upload.wikimedia.org/wikipedia/commons/b/b0/Transgender_Pride_flag.svg");
-            //     }
-
-            //     &:before {
-            //         content: '';
-            //         display: block;
-            //         color: black;
-            //         width: 18px;
-            //         height: 18px;
-            //         margin-top: 22px;
-            //     }
-
-            //     &.yes::before {
-            //         content: "y"
-            //     }
-
-            //     &.no::before {
-            //         content: "n"
-            //     }
-
-            //     &.unsure::before {
-            //         content: "-"
-            //     }
-            // }
+            justify-content: center; 
         }
     }
 
