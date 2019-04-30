@@ -89,6 +89,7 @@ class ReviewForm extends React.Component {
         return (
             <div className='review-form--page'>
                 <section className='review-form--container'>
+                    <h2>{this.props.title}</h2>
                     <DynamicFormContainer
                         questions={ReviewQA}
                         onSubmit={this.submitHandler}

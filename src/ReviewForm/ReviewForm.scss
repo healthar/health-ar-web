@@ -18,5 +18,23 @@
     background-color: white;
     box-shadow: $box-shadow;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     box-sizing: content-box;
+
+    @media (max-width: 900px)  {
+       height: 100%;
+       width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        width: 100%;
+        font-size: 38px;
+        margin-bottom: 40px;
+        font-weight: 700;
+        color: $darker-grey;
+    }
 }
