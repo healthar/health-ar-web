@@ -70,7 +70,7 @@ class Signup extends Component {
                 }
             }).catch((err) => {
                 console.log(err);
-                this.setState({ loading: false, error: "unknown error" });
+                this.setState({ loading: false, error: "Make sure you are on http not https." });
             });
         }
     }
