@@ -43,21 +43,23 @@ const Location = ({ currentLocation, aggregate, toggleReviewFormVisibility }) =>
             </div>
             <div className='location--subheader'>Reviews</div>
             <br />
-            {currentLocation.reviews.map((review, id) => {
-                return (
-                    <div className='location--review-single' key={id}>
-                        <div className='review-top'>
-                            <img className='small-avatar' src={require('assets/user.png')} alt='user' />
-                            <div className='location--review-h3'>{`Anonymous ${names[Math.floor(Math.random() * names.length)]}`}</div>
-                            <IndividualRating key={id} review={review} />
+            {currentLocation.reviews.length > 0 ?
+                currentLocation.reviews.map((review, id) => {
+                    return (
+                        <div className='location--review-single' key={id}>
+                            <div className='review-top'>
+                                <img className='small-avatar' src={require('assets/user.png')} alt='user' />
+                                <div className='location--review-h3'>{`Anonymous ${names[Math.floor(Math.random() * names.length)]}`}</div>
+                                <IndividualRating key={id} review={review} />
+                            </div>
+                            <div className='review-content'>
+                                {renderDescription(review)}
+                                {renderBathroom(review)}
+                            </div>
                         </div>
-                        <div className='review-content'>
-                            {renderDescription(review)}
-                            {renderBathroom(review)}
-                        </div>
-                    </div>
-                )
-            })}
+                    )
+                })
+            : <p className="no-reviews">No Reviews Yet!</p>}
         </section>
     )
 }

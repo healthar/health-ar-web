@@ -23,7 +23,11 @@
     font-size: 16px;
     font-weight: 600;
     color: $darker-grey;
-    margin: 20px 0px;
+    margin: 20px 0px 4px;
+}
+
+.location--review-single:last-child {
+    margin-bottom: 64px;
 }
 
 .small-avatar {
@@ -47,6 +51,11 @@
 
 .review-content {
     margin-left: 40px;
+}
+
+.no-reviews {
+    font-size: 14px;
+    opacity: 0.6;
 }
 
 .sidebar--review-subheader {
