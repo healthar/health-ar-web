@@ -250,6 +250,7 @@ class MapLayout extends Component {
             
             {(Object.keys(this.state.currentLocation).length > 0) && reviewFormVisibility ?
                 <ReviewForm
+                    title={this.state.currentLocation.name}
                     locationID={this.state.currentLocation.place_id}
                     lat={this.state.currentLocation.geometry.location.lat}
                     lng={this.state.currentLocation.geometry.location.lng}

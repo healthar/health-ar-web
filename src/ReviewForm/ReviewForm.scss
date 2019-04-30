@@ -24,4 +24,13 @@
     justify-content: center;
 
     box-sizing: content-box;
+
+    h2 {
+        text-align: center;
+        width: 100%;
+        font-size: 38px;
+        margin-bottom: 40px;
+        font-weight: 700;
+        color: $darker-grey;
+    }
 }
