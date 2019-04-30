@@ -279,9 +279,11 @@ class MapLayout extends Component {
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                 <LayerGroup>
-                    {this.state.reviews.map((review, id) => {
-                        return <Circle center={[review.lat, review.lng]} color={"none"} fillColor={((review.inclusiveTransgender == false || review.inclusiveSexuality == false) ? "red" : "green")} radius={200} />
-                    })}
+                    { this.state.zoom < 17 ?
+                        this.state.reviews.map((review, id) => {
+                            return <Circle center={[review.lat, review.lng]} color={"none"} fillColor={((review.inclusiveTransgender == false || review.inclusiveSexuality == false) ? "red" : "green")} radius={200} />
+                        })
+                    :null}
                 </LayerGroup>
                 {this.state.locations.map((location, id) => {
                     return <Marker icon={(location.reviews.length > 0) ? general_marker : no_review_marker} position={location.geometry.location} onClick={() => {
