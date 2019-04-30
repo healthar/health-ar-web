@@ -8,6 +8,7 @@
 }
 
 .login-page {
+    box-sizing: border-box;
     width: 100vw;
     min-height: 100vh;
     background: linear-gradient(to bottom right, $blue, $purple);
@@ -21,6 +22,8 @@
     justify-content: center;
     align-items: center;
 
+    padding: 40px;
+
     h2 {
         text-align: center;
         width: 100%;
@@ -29,6 +32,14 @@
         font-weight: 700;
         color: $darker-grey;
     }
+}
+
+.logo {
+    z-index: 10;
+    width: 450px;
+    height: auto;
+    object-fit: contain;
+    margin-left: -50px;
 }
 
 .login-container {
@@ -68,55 +79,25 @@
 
 @media (max-width: 600px)  {
     .login-container {
-        width: 100vw;
+        margin: 0 auto;
+        width: 70vw;
         padding: 16px;
         box-shadow: none;
     }
 
     .login-page {
+        box-sizing: border-box;
         background-color: white;
+        flex-direction: column;
+        padding: 40px;
+        // padding-bottom: 300px;
+        height: auto;
+        overflow: scroll;
+    }
+
+    .logo {
+        margin: 0px;
+        width: 100px;
+        display: block;
     }
 }
-
-// .registration--patient,
-// .registration--doctor {
-//     color: white;
-//     font-size: 24px;
-//     font-weight: 600;
-//     text-align: center;
-
-//     padding: 20px;
-
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-around;
-//     align-items: center;
-// }
-
-// .registration--patient {
-//     grid-area: patient;
-//     background-color: $blue-medium;
-// }
-
-// .registration--doctor {
-//     grid-area: doctor;
-//     background-color: $blue-light;
-// }
-
-// .btn--main {
-//     @include system-button($blue, $blue-hover);
-//     font-weight: 600;
-//     margin: 0 auto;
-//     padding: 10px;
-// }
-
-// .registration--header {
-//     padding-bottom: -30px;
-// }
-
-// @media (max-width: 650px)  {
-//     .login-container {
-//         grid-template-columns: 1fr;
-//         grid-template-areas: "login" "registration";
-//     }
-// }
