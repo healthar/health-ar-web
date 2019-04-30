@@ -146,9 +146,9 @@ const questionMaker = ({
 
   if (input_type.indexOf('_toggle') !== -1 ){
     const imgs = {
-      bathroom_toggle: require('assets/lgbtq.png'),
-      trans_toggle: require('assets/trans.png'),
-      lgbtq_toggle: require('assets/lgbtq.png'),
+      bathroom_toggle: require('assets/bathroom_1@0.5x.png'),
+      trans_toggle: require('assets/trans@0.5x.png'),
+      lgbtq_toggle: require('assets/lgbtq@0.5x.png'),
     }
     return (
       <div key={"question_" + field_name} className={`form-QA ${style_name} toggle-qa`}>
