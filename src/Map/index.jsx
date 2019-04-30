@@ -254,13 +254,26 @@ class MapLayout extends Component {
         this.props.history.push('/');
     }
 
-    getMarker = (reviews) => {
+    getMarker = (location) => {
+        let { types, reviews, hasBR } = location
         let averages = this.getAverageForLocation(reviews);
         if (averages.inclusiveSexuality === 'no' || averages.inclusiveTransgender === 'no') {
             return general_bad_marker;
-        } else {
-            return general_good_marker;
         }
+
+        if (types.includes('school') || types.includes('university')) {
+            return school_marker;
+        } 
+
+        if (types.includes('doctor') || types.includes('health')) {
+            return medical_marker;
+        }
+
+        if (hasBR) {
+            return bathroom_marker;
+        }
+
+        return general_good_marker;
     }
 
     render() {
@@ -308,7 +321,7 @@ class MapLayout extends Component {
                     :null}
                 </LayerGroup>
                 {this.state.locations.map((location, id) => {
-                    return <Marker icon={(location.reviews.length > 0) ? this.getMarker(location.reviews) : no_review_marker} position={location.geometry.location} onClick={() => {
+                    return <Marker icon={(location.reviews.length > 0) ? this.getMarker(location) : no_review_marker} position={location.geometry.location} onClick={() => {
                         this.toggleReviewFormVisibility(false);
                         this.setState({
                             currentLocation: location
