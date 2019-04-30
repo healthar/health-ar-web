@@ -265,7 +265,7 @@ class MapLayout extends Component {
                 />
                 : null}
 
-            <Map minZoom={16} center={this.state.position} zoom={this.state.zoom} onViewportChanged={({ center, zoom }) => {
+            <Map minZoom={15} center={this.state.position} zoom={this.state.zoom} onViewportChanged={({ center, zoom }) => {
                 console.log(zoom);
                 this.getLocations(1, center[0], center[1]); // to update view on drag
                 this.setState({
