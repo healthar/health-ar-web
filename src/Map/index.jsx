@@ -8,14 +8,19 @@ import Location from './Location';
 import { AggregateRating } from './Ratings'
 import Avatar from './Avatar';
 
-import { Map, Marker, Popup, TileLayer, Tooltip } from 'react-leaflet'
+import { Map, Marker, Popup, TileLayer, Tooltip, Circle, LayerGroup, LayersControl } from 'react-leaflet'
+
+let {Overlay} = LayersControl
 
 const L = require('leaflet');
+
+const xOffset = 16;
+const yOffset = 32;
 
 const no_review_marker = L.icon({
     iconUrl: require('assets/no-review@0.5x.png'),
     iconSize: new L.Point(32, 32),
-    iconAnchor: new L.Point(16, 0),
+    iconAnchor: new L.Point(xOffset, yOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -25,7 +30,7 @@ const no_review_marker = L.icon({
 const general_marker = L.icon({
     iconUrl: require('assets/general@0.5x.png'),
     iconSize: new L.Point(32, 32),
-    iconAnchor: new L.Point(16, 0),
+    iconAnchor: new L.Point(xOffset, yOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -35,7 +40,7 @@ const general_marker = L.icon({
 const medical_marker = L.icon({
     iconUrl: require('assets/health@0.5x.png'),
     iconSize: new L.Point(32, 32),
-    iconAnchor: new L.Point(16, 0),
+    iconAnchor: new L.Point(xOffset, yOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -45,7 +50,7 @@ const medical_marker = L.icon({
 const bathroom_marker = L.icon({
     iconUrl: require('assets/bathroom@0.5x.png'),
     iconSize: new L.Point(32, 32),
-    iconAnchor: new L.Point(16, 0),
+    iconAnchor: new L.Point(xOffset, yOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -55,7 +60,7 @@ const bathroom_marker = L.icon({
 const school_marker = L.icon({
     iconUrl: require('assets/schools@0.5x.png'),
     iconSize: new L.Point(32, 32),
-    iconAnchor: new L.Point(16, 0),
+    iconAnchor: new L.Point(xOffset, yOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -71,9 +76,10 @@ class MapLayout extends Component {
         position: [37.330917, -121.889185],
         reviewFormVisibility: false,
         zoom: 13,
-        searchVal: null
+        searchVal: null,
+        reviews: []
     };
-    
+
     /**
      * 
      * @param {*} reviews the reviews associated with a location
@@ -177,6 +183,19 @@ class MapLayout extends Component {
         }).catch((err) => {
             this.setState({ loading: false, locations: [] });
         });
+
+        axios.post(process.env.REACT_APP_API_URL + 'graphql', {
+            query: `{
+				GetReviewsNearby(radius: ${radius}, lat: ${lat}, lng: ${lng})
+			}`
+        }).then((result) => {
+            this.setState({
+                loading: false,
+                reviews: result.data.data.GetReviewsNearby,
+            })
+        }).catch((err) => {
+            this.setState({ loading: false, locations: [] });
+        });
     }
 
     getLocationDetails(id) {
@@ -193,21 +212,21 @@ class MapLayout extends Component {
     }
 
     componentDidMount() {
-        if(this.getUser() == -1)
+        if (this.getUser() == -1)
             this.props.history.push("/");
         else
             this.getLocations(1, 37.330917, -121.889185); // default locations
     }
 
     getUser() {
-        if(localStorage.getItem('user') == null || JSON.parse(localStorage.getItem('user')).id == null)
+        if (localStorage.getItem('user') == null || JSON.parse(localStorage.getItem('user')).id == null)
             return -1;
         else
             return JSON.parse(localStorage.getItem('user'));
     }
 
     toggleReviewFormVisibility = (_set) => {
-        if(_set != null)
+        if (_set != null)
             this.setState({ reviewFormVisibility: _set })
         else
             this.setState({ reviewFormVisibility: this.state.reviewFormVisibility ? false : true })
@@ -230,17 +249,20 @@ class MapLayout extends Component {
             <Avatar logout={this.logout} />
             
             {(Object.keys(this.state.currentLocation).length > 0) && reviewFormVisibility ?
-                <ReviewForm 
-                    locationID={this.state.currentLocation.place_id} 
-                    creatorID={this.getUser().id} 
+                <ReviewForm
+                    locationID={this.state.currentLocation.place_id}
+                    lat={this.state.currentLocation.geometry.location.lat}
+                    lng={this.state.currentLocation.geometry.location.lng}
+                    creatorID={this.getUser().id}
                     createdReview={() => {
                         this.getLocations(1, this.state.position[0], this.state.position[1]); // to update view on drag
-                    }} 
+                    }}
                     toggleReviewFormVisibility={this.toggleReviewFormVisibility}
                 />
-            :null}
+                : null}
 
             <Map center={this.state.position} zoom={this.state.zoom} onViewportChanged={({ center, zoom }) => {
+                console.log(zoom);
                 this.getLocations(1, center[0], center[1]); // to update view on drag
                 this.setState({
                     position: center,
@@ -252,9 +274,14 @@ class MapLayout extends Component {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
+                    <LayerGroup>
+                        {this.state.reviews.map((review, id) => {
+                            return <Circle center={[review.lat, review.lng]} color={"none"} fillColor={((review.inclusiveTransgender == false || review.inclusiveSexuality == false) ? "red" : "green")} radius={200} />
+                        })}
+                    </LayerGroup>
                 {this.state.locations.map((location, id) => {
                     return <Marker icon={(location.reviews.length > 0) ? general_marker : no_review_marker} position={location.geometry.location} onClick={() => {
-                        this.toggleReviewFormVisibility(false); 
+                        this.toggleReviewFormVisibility(false);
                         this.setState({
                             currentLocation: location
                         })
@@ -264,7 +291,7 @@ class MapLayout extends Component {
                             {location.name}
                             {(location.reviews.length > 0) ?
                                 <div className="tooltip-icons">
-                                    <AggregateRating reviews={this.getAverageForLocation(location.reviews)} small={true}/>
+                                    <AggregateRating reviews={this.getAverageForLocation(location.reviews)} small={true} />
                                 </div>
                                 : null}
                         </Tooltip>
@@ -272,29 +299,29 @@ class MapLayout extends Component {
                 })}
             </Map>
             <div className={"sidebar " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
-                {Object.keys(this.state.currentLocation).length > 0 
-                    ? <Location 
-                            currentLocation={this.state.currentLocation} 
-                            aggregate={currentLocationAggregate} 
-                            toggleReviewFormVisibility={this.toggleReviewFormVisibility}
-                        />
-                    :  <p>Please select a location</p>
+                {Object.keys(this.state.currentLocation).length > 0
+                    ? <Location
+                        currentLocation={this.state.currentLocation}
+                        aggregate={currentLocationAggregate}
+                        toggleReviewFormVisibility={this.toggleReviewFormVisibility}
+                    />
+                    : <p>Please select a location</p>
                 }
             </div>
 
             <div className={"topbar " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
                 <div className="search">
                     <input type="text" placeholder="1 Hacker Way, Menlo Park"
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            this.getLocations(1, this.state.position[0], this.state.position[1]);           
-                        }
-                    }}
-                    onChange={(val) => { 
-                        this.setState({ searchVal: val.target.value })
-                    }}></input>
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                this.getLocations(1, this.state.position[0], this.state.position[1]);
+                            }
+                        }}
+                        onChange={(val) => {
+                            this.setState({ searchVal: val.target.value })
+                        }}></input>
                     <button onClick={() => {
-                        this.getLocations(1, this.state.position[0], this.state.position[1]);           
+                        this.getLocations(1, this.state.position[0], this.state.position[1]);
                     }}>Search</button>
                 </div>
                 <div className="categories">
