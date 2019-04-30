@@ -54,9 +54,9 @@ class ReviewForm extends React.Component {
                 lng: ${lng},
                 creatorID: "${ creatorID}",
                 locationID: "${ locationID}",
-                inclusiveSexuality: ${ inclusiveSexuality},
-                inclusiveTransgender: ${ inclusiveTransgender},
-                unisexBathroom: ${ unisexBathroom},
+                inclusiveSexuality: ${(inclusiveSexuality == null ? null : inclusiveSexuality )},
+                inclusiveTransgender: ${(inclusiveTransgender == null ? null : inclusiveTransgender )},
+                unisexBathroom: ${(unisexBathroom == null ? null : unisexBathroom )},
                 bathroomLocationDescription: ${ (bathroomLocationDescription) ? '"' + bathroomLocationDescription + '"' : null},
                 description: ${ (description) ? '"' + description + '"' : null}
             )
@@ -69,9 +69,9 @@ class ReviewForm extends React.Component {
                     lng: ${lng},
                     creatorID: "${creatorID}",
                     locationID: "${locationID}",
-                    inclusiveSexuality: ${inclusiveSexuality},
-                    inclusiveTransgender: ${inclusiveTransgender},
-                    unisexBathroom: ${unisexBathroom},
+                    inclusiveSexuality: ${(inclusiveSexuality == null ? null : inclusiveSexuality )},
+                    inclusiveTransgender: ${(inclusiveTransgender == null ? null : inclusiveTransgender )},
+                    unisexBathroom: ${(unisexBathroom == null ? null : unisexBathroom )},
                     bathroomLocationDescription: ${ (bathroomLocationDescription) ? '"' + bathroomLocationDescription + '"' : null},
                     description: ${ (description) ? '"' + description + '"' : null}
                 )
