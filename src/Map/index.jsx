@@ -272,7 +272,7 @@ class MapLayout extends Component {
                 })
             }}>
                 <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                     <LayerGroup>
