@@ -81,7 +81,7 @@ class Signup extends Component {
                 <section className='login-container'>
                     <section className='login--left'>
                         <div className='login-form'>
-                            <h2>Signup to Continue</h2>
+                            <h2>Signup</h2>
 
                             <DynamicFormContainer
                                 questions={LoginData}
@@ -95,20 +95,6 @@ class Signup extends Component {
                                 : null}
                         </div>
                     </section>
-                    {/* <section className='login--right'>
-                        <div className='registration--patient'>
-                            <div className='registration--header'>New Patient?</div>
-                            <button className='btn--main'>
-                                Patient Registration
-                        </button>
-                        </div>
-                        <div className='registration--doctor'>
-                            <div className='registration--header'>New Doctor?</div>
-                            <button className='btn--main'>
-                                Doctor Registration
-                        </button>
-                        </div>
-                    </section> */}
                 </section>
             </div>
         )

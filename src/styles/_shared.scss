@@ -15,9 +15,12 @@ $palest-grey: #f8f8f8;
 
 $blue: #3C81DB;
 $blue-hover: rgb(52, 119, 207);
+$blue-dark: rgb(33, 96, 179);
 $blue-medium: #6DA4EB;
 $blue-light: #88CFFF;
 $blue-palest: #f3f7fc;
+
+$purple: rgb(65, 33, 179);
 
 $attention-red: #f37070;
 $attention-red--light: #efb0b0;
@@ -34,6 +37,7 @@ $theme-green--lighter: rgb(189, 221, 208);
 
 $box-shadow: 0px 3px 6px $light-grey;
 $box-shadow-dark: 0px 3px 6px $dark-grey;
+$box-shadow-blue: 0px 3px 6px $blue;
 
 /*
 ==========================

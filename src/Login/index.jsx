@@ -57,7 +57,7 @@ class Login extends Component {
                 <section className='login-container'>
                     <section className='login--left'>
                         <div className='login-form'>
-                            <h2>Login to Continue</h2>
+                            <h2>Login</h2>
 
                             <DynamicFormContainer
                                 questions={LoginData}
@@ -70,23 +70,13 @@ class Login extends Component {
                                 <p className="error">{this.state.error}</p>
                             :null}
 
-                            <p className="signup-msg">Need an account? <Link to="/signup">Signup here</Link>.</p>
+                            <p className="signup-msg">
+                                Need an account?
+                                <br />
+                                <Link to="/signup">Signup Here</Link>
+                            </p>
                         </div>
                     </section>
-                    {/* <section className='login--right'>
-                        <div className='registration--patient'>
-                            <div className='registration--header'>New Patient?</div>
-                            <button className='btn--main'>
-                                Patient Registration
-                        </button>
-                        </div>
-                        <div className='registration--doctor'>
-                            <div className='registration--header'>New Doctor?</div>
-                            <button className='btn--main'>
-                                Doctor Registration
-                        </button>
-                        </div>
-                    </section> */}
                 </section>
             </div>
         )
