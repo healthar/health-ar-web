@@ -352,7 +352,7 @@ class MapLayout extends Component {
 
             <div className={"topbar " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
                 <div className="search">
-                    <input type="text" placeholder="1 Hacker Way, Menlo Park"
+                    <input type="text" placeholder="Categories, ex: Restaurants, Parks"
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 this.getLocations(1, this.state.position[0], this.state.position[1]);
