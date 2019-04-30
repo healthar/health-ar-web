@@ -17,10 +17,14 @@ const L = require('leaflet');
 const xOffset = 16;
 const yOffset = 32;
 
+const tooltipXOffset = 10
+const tooltipYOffset = -24
+
 const no_review_marker = L.icon({
     iconUrl: require('assets/no-review@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -31,6 +35,7 @@ const general_good_marker = L.icon({
     iconUrl: require('assets/green@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -41,6 +46,7 @@ const general_bad_marker = L.icon({
     iconUrl: require('assets/red@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -51,6 +57,7 @@ const medical_marker = L.icon({
     iconUrl: require('assets/health@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -61,6 +68,7 @@ const bathroom_marker = L.icon({
     iconUrl: require('assets/bathroom@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
@@ -71,11 +79,85 @@ const school_marker = L.icon({
     iconUrl: require('assets/schools@0.5x.png'),
     iconSize: new L.Point(32, 32),
     iconAnchor: new L.Point(xOffset, yOffset),
+    tooltipAnchor: new L.Point(tooltipXOffset, tooltipYOffset),
     popupAnchor: null,
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null
 });
+
+const legendItems = [
+    {
+        iconUrl: require('assets/no-review@0.5x.png'),
+        title: 'General Unreviewed',
+    },
+    {
+        iconUrl: require('assets/green@0.5x.png'),
+        title: 'General Inclusive',
+    },
+    {
+        iconUrl: require('assets/red@0.5x.png'),
+        title: 'General Negative Experience',
+    },
+    {
+        iconUrl: require('assets/bathroom@0.5x.png'),
+        title: 'Unisex Bathroom',
+    },
+    {
+        iconUrl: require('assets/health@0.5x.png'),
+        title: 'Inclusive Medical Services',
+    },
+    {
+        iconUrl: require('assets/schools@0.5x.png'),
+        title: 'Inclusive Schools',
+    },
+    {
+        iconUrl: require('assets/questionable@0.5x.png'),
+        title: 'Questionable Areas',
+    },
+    {
+        iconUrl: require('assets/safe@0.5x.png'),
+        title: 'Safe Areas',
+    },
+]
+class Legend extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            legendVisibility: false,
+        }
+    }
+    renderMarkers = () => {
+        return legendItems.map((marker, idx) => {
+            return <div key={idx} className='legend-item--unit'>
+                <div className='legend-item--txt'>{marker.title}</div>
+                <img className='legend-item--img' src={marker.iconUrl} alt='legend' />
+            </div>
+        })
+    }
+
+    toggleVisibility = () => {
+        this.setState({ legendVisibility: !this.state.legendVisibility })
+    }
+
+    render() {
+        let { legendVisibility } = this.state;
+        return (
+            <section className='legend--container' onClick={() => { this.toggleVisibility() }}>
+                                {
+                    legendVisibility && (
+                        <div className='legend'>
+                        {
+                            this.renderMarkers()
+                        }
+                        </div>
+                    )
+                }
+                <i class="fas fa-question-circle"></i>
+            </section>
+        )
+    }
+}
 
 class MapLayout extends Component {
 
@@ -174,7 +256,7 @@ class MapLayout extends Component {
     getLocations(radius, lat, lng, category) {
         this.setState({ loading: true });
 
-        if(!category)
+        if (!category)
             category = this.state.category;
 
         console.log(`{
@@ -263,7 +345,7 @@ class MapLayout extends Component {
 
         if (types.includes('school') || types.includes('university')) {
             return school_marker;
-        } 
+        }
 
         if (types.includes('doctor') || types.includes('health')) {
             return medical_marker;
@@ -283,6 +365,8 @@ class MapLayout extends Component {
 
             <Avatar logout={this.logout} />
 
+            <Legend />
+
             {(Object.keys(this.state.currentLocation).length > 0) && reviewFormVisibility ?
                 <ReviewForm
                     title={this.state.currentLocation.name}
@@ -298,8 +382,7 @@ class MapLayout extends Component {
                 : null}
 
             <Map minZoom={15} center={this.state.position} zoom={this.state.zoom} onViewportChanged={({ center, zoom }) => {
-                if(!this.state.reviewFormVisibility)
-                {
+                if (!this.state.reviewFormVisibility) {
                     console.log(zoom);
                     this.getLocations(1, center[0], center[1]); // to update view on drag
                     this.setState({
@@ -314,11 +397,11 @@ class MapLayout extends Component {
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                 <LayerGroup>
-                    { this.state.zoom < 16 ?
+                    {this.state.zoom < 16 ?
                         this.state.reviews.map((review, id) => {
                             return <Circle center={[review.lat, review.lng]} color={"none"} fillColor={((review.inclusiveTransgender == false || review.inclusiveSexuality == false) ? "red" : "green")} radius={200} />
                         })
-                    :null}
+                        : null}
                 </LayerGroup>
                 {this.state.locations.map((location, id) => {
                     return <Marker icon={(location.reviews.length > 0) ? this.getMarker(location) : no_review_marker} position={location.geometry.location} onClick={() => {
@@ -352,7 +435,7 @@ class MapLayout extends Component {
 
             <div className={"topbar " + (Object.keys(this.state.currentLocation).length > 0 ? "show" : "hide")}>
                 <div className="search">
-                    <input type="text" placeholder="1 Hacker Way, Menlo Park"
+                    <input type="text" placeholder="Categories, ex: Restaurants, Parks"
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 this.getLocations(1, this.state.position[0], this.state.position[1]);

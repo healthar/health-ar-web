@@ -243,3 +243,68 @@
         }
     }
 }
+
+
+.legend--container {
+    cursor: pointer;
+    box-shadow: $box-shadow;
+    position: absolute;
+    z-index: 10000;
+    bottom: 20px;
+    right: 20px;
+
+    .fa-question-circle {
+        font-size: 50px;
+        color: $medical;
+        margin-left: 80px;
+    }
+
+    .legend {
+        background-color: white;
+        padding: 15px;
+        position: relative;
+        margin-bottom: 10px;
+        max-width: 95px;
+
+        border-radius: 6px;
+        box-shadow: $box-shadow;
+    }
+
+    .legend-item--unit {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 5px;
+        justify-items: center;
+
+        margin-bottom: 10px;
+
+        &:last-of-type {
+            margin-bottom: 0px;
+            justify-items: end;
+        }
+    }
+
+    .legend-item--txt {
+        font-size: 9px;
+        font-weight: 600;
+        color: $dark-grey;
+        max-width: 100%;
+        text-align: right;
+        align-self: center;
+    }
+
+    .legend-item--img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        justify-self: end;
+        align-self: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .fa-question-circle {
+        font-size: 40px !important;
+        margin-left: 90px !important;
+    }
+}
