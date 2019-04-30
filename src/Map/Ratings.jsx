@@ -5,17 +5,17 @@ import './Ratings.scss';
 export const ratings = [
     {
         name: 'Unisex Bathroom',
-        img: require('assets/lgbtq.png'),
+        img: require('assets/bathroom_1@0.5x.png'),
         field_name: 'unisexBathroom'
     },
     {
         name: 'Trans Inclusive',
-        img: require('assets/trans.png'),
+        img: require('assets/trans@0.5x.png'),
         field_name: 'inclusiveTransgender'
     },
     {
         name: 'LGBTQ Inclusive',
-        img: require('assets/lgbtq.png'),
+        img: require('assets/lgbtq@0.5x.png'),
         field_name: 'inclusiveSexuality'
     }
 ]
