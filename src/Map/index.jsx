@@ -347,12 +347,12 @@ class MapLayout extends Component {
                         })
                         this.getLocations(1, this.state.position[0], this.state.position[1], "medical");
                     }}>medical</div>
-                    <div className={"bathrooms " + (this.state.category == "restroom" ? "active" : "")} onClick={() => {
+                    <div className={"restroom " + (this.state.category == "restroom" ? "active" : "")} onClick={() => {
                         this.setState({
                             category: "restroom"
                         })
                         this.getLocations(1, this.state.position[0], this.state.position[1], "restroom");
-                    }}>bathrooms</div>
+                    }}>restrooms</div>
                 </div>
             </div>
         </div>)
